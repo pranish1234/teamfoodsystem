@@ -1,0 +1,8 @@
+1 Rasna  20
+2 Tea  30
+3 Redbull  90
+4 Pepsi_330ml  70
+5 Mountain_Dew_330ml  70
+6 Coke_250ml  45
+7 Fanta_250ml  45
+8 San_Soju_300Ml  220

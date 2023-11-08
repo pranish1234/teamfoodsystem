@@ -1,0 +1,11 @@
+1 Newari_Set	230.00
+2 Dal_Bhat	450.00
+3 Veg_Fried_Rice	290.00
+4 Plain_Rice	230.00
+5 Vegetables	180.00
+6 Local_Chicken	290.00
+7 Mutton	280.00
+8 Fish	270.00
+9 Chicken	265.00
+10 Veg_Curry	100.00
+11 Egg_Curry	130.00

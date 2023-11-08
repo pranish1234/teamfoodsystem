@@ -1,0 +1,10 @@
+1 Rice_Pudding	90.00
+2 Fruit_Salad	490.00
+3 Cake	80.00
+4 Jerry_Dahi	100.00
+5 Lalmon_Dahi	140.00
+6 Apple_Fritters	190.00
+7 Banana_Fritters	190.00
+8 Sweet_Curd	150.00
+9 Brownies	120.00
+10 Muffins	100.00

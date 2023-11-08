@@ -1,0 +1,5 @@
+1 Kimchi	7.99
+2 Bibimbap	10.49
+3 Seollangtang	9.99
+4 Sam_Geo_Tang	11.99
+5 Bulgogi	12.99
