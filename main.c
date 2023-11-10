@@ -4,7 +4,9 @@
 int choice, id, order;
 char Fooditem[70];
 float prices;
-int display();
+
+int cart();
+int display(FILE *filename, char name[100]);
 int mainmenu();
 int cuisinemenu();
 int foods();
@@ -44,7 +46,7 @@ int mainmenu()
         // bill();
         break;
     case 3:
-        // cart();
+        cart();
         break;
 
     default:
@@ -111,7 +113,12 @@ int foods()
         break;
     }
 }
-
+int cart()
+{
+    FILE *cart = fopen("cart.txt", "r");
+    display(cart, "cart");
+    fclose(cart);
+}
 int drinks()
 {
     FILE *drinks = fopen("DrinksList.txt", "r");

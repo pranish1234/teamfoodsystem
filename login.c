@@ -65,7 +65,7 @@ int main()
         printf("Please enter your password: ");
         scanf("%s", password);
 
-        fprintf(file, "%s %s", username, password);
+        fprintf(file, "%s %s ", username, password);
         fclose(file);
         printf("Account created successfully!");
         sleep(1);
