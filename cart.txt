@@ -1,1 +1,7 @@
-1 icecreem 10
+1 Newari_Set 230.000000
+2 Dal_Bhat 450.000000
+1 Shrimps_with_pear 12.990000
+1 Kimchi 7.990000
+1 Takoyaki 8.990000
+1 Rice_Pudding 90.000000
+3 Redbull 90.000000

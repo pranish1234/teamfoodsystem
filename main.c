@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <windows.h>
 
 int choice, id, order;
-char Fooditem[70];
+int total = 0;
+char Fooditem[70], choiceRepeat[10];
 float prices;
 
-int cart();
-int display(FILE *filename, char name[100]);
+int addtocart();
+int redeemCart();
+int display();
 int mainmenu();
 int cuisinemenu();
 int foods();
@@ -28,6 +32,21 @@ int display(FILE *filename, char name[100])
     printf("********************************************************************\n");
 }
 
+// adds to cart
+int addtocart(FILE *filename, int enteredId)
+{
+    FILE *cart = fopen("cart.txt", "a");
+    rewind(filename);
+    while (fscanf(filename, "%d %s %f", &id, Fooditem, &prices) != EOF)
+    {
+        if (enteredId == id)
+        {
+            fprintf(cart, "%d %s %f\n", id, Fooditem, prices);
+        }
+    }
+    fclose(cart);
+}
+
 int mainmenu()
 {
     int choice;
@@ -46,7 +65,7 @@ int mainmenu()
         // bill();
         break;
     case 3:
-        cart();
+        // cart();
         break;
 
     default:
@@ -103,7 +122,6 @@ int foods()
         break;
 
     case 3:
-        // for desert
         deserts();
 
         break;
@@ -113,12 +131,7 @@ int foods()
         break;
     }
 }
-int cart()
-{
-    FILE *cart = fopen("cart.txt", "r");
-    display(cart, "cart");
-    fclose(cart);
-}
+
 int drinks()
 {
     FILE *drinks = fopen("DrinksList.txt", "r");
@@ -127,10 +140,20 @@ int drinks()
 
     display(drinks, "Drinks");
 
-    printf("What do you wanna order? ");
-    scanf("%d", &order);
+    do
+    {
+        printf("What do you wanna order? ");
+        scanf("%d", &order);
+
+        addtocart(drinks, order);
+        printf("What do you wanna order? (YES/NO): ");
+        scanf("%s", &choiceRepeat);
+
+    } while (strcmp(strupr(choiceRepeat), "YES") == 0);
+
     fclose(drinks);
 }
+
 int deserts()
 {
     FILE *deserts = fopen("deserts.txt", "r");
@@ -139,19 +162,91 @@ int deserts()
 
     display(deserts, "Deserts");
 
-    printf("What do you wanna order? ");
-    scanf("%d", &order);
+    do
+    {
+        printf("What do you wanna order? ");
+        scanf("%d", &order);
+
+        addtocart(deserts, order);
+        printf("What do you wanna order? (YES/NO): ");
+        scanf("%s", &choiceRepeat);
+
+    } while (strcmp(strupr(choiceRepeat), "YES") == 0);
+
     fclose(deserts);
 }
+
 int local()
 {
     FILE *local = fopen("local.txt", "r");
 
     display(local, "Local food");
 
-    printf("What do you wanna order? ");
-    scanf("%d", &order);
+    do
+    {
+        printf("What do you wanna order? ");
+        scanf("%d", &order);
+
+        addtocart(local, order);
+        printf("What do you wanna order? (YES/NO): ");
+        scanf("%s", &choiceRepeat);
+
+    } while (strcmp(strupr(choiceRepeat), "YES") == 0);
+
     fclose(local);
+}
+
+void payment()
+{
+    // yeta kei pani na garne
+}
+
+int redeemCart()
+{
+    char choice[3];
+
+checkPoint:
+
+    printf("\n\n\n\n\t*****************************Cart*******************************\n");
+    printf("\n\nYour Total Order Amount is : %d\n", total);
+    printf("\n\nDo You wish to order (Yes/No) : ");
+    scanf("%s", choice);
+
+    if (strcmp(strupr(choice), "YES") == 0)
+    {
+        printf("\n\nLoading Order...");
+        Sleep(3000);
+        payment();
+    }
+    else if (strcmp(strupr(choice), "NO") == 0)
+    {
+        printf("To cancel Your Order = Yes\nTo Exit = No\n");
+        printf("Select option : ");
+        scanf("%s", choice);
+
+        if (strcmp(strupr(choice), "YES") == 0)
+        {
+
+            remove("cart.txt");
+            FILE *cart = fopen("cart.txt", "a");
+
+            printf("\n\nOops! Your order is cancelled!! Exiting..\n\n");
+            printf("Thank You visit again!\n");
+            mainmenu();
+        }
+        else
+        {
+            // Product is bought
+            printf("\n\n\t\t************Thank You******************\n\n");
+            mainmenu();
+        }
+    }
+    else
+    {
+        // Invalid choice
+        printf("\n\nPlease Enter the correct choice\n\n ");
+        goto checkPoint;
+    }
 }
 
 int international()
@@ -174,8 +269,17 @@ int international()
 
         display(italian, "Italian food");
 
-        printf("What do you wanna order? ");
-        scanf("%d", &order);
+        do
+        {
+            printf("What do you wanna order? ");
+            scanf("%d", &order);
+
+            addtocart(italian, order);
+            printf("What do you wanna order? (YES/NO): ");
+            scanf("%s", &choiceRepeat);
+
+        } while (strcmp(strupr(choiceRepeat), "YES") == 0);
+
         fclose(italian);
         break;
 
@@ -184,8 +288,17 @@ int international()
 
         display(korean, "Korean food");
 
-        printf("What do you wanna order? ");
-        scanf("%d", &order);
+        do
+        {
+            printf("What do you wanna order? ");
+            scanf("%d", &order);
+
+            addtocart(korean, order);
+            printf("What do you wanna order? (YES/NO): ");
+            scanf("%s", &choiceRepeat);
+
+        } while (strcmp(strupr(choiceRepeat), "YES") == 0);
+
         fclose(korean);
         break;
 
@@ -194,11 +307,24 @@ int international()
 
         display(japanese, "Japanese food");
 
-        printf("What do you wanna order? ");
-        scanf("%d", &order);
+        do
+        {
+            printf("What do you wanna order? ");
+            scanf("%d", &order);
+
+            addtocart(japanese, order);
+            printf("What do you wanna order? (YES/NO): ");
+            scanf("%s", &choiceRepeat);
+
+        } while (strcmp(strupr(choiceRepeat), "YES") == 0);
+
         fclose(japanese);
         break;
     default:
         printf("Invalid choice.\n");
     }
+}
+int main()
+{
+    mainmenu();
 }

@@ -5,7 +5,8 @@
 int total = 0;
 char choice[3];
 
-void cart();
+void addtocart();
+void mainmenu();
 
 void payment() {
 	//yeta kei pani na garne
@@ -13,11 +14,12 @@ void payment() {
 
 void addtocart(int id) {
 
+
     printf("\n\n\n\n\t*****************************Cart*******************************\n");
     printf("\n\nYour Total Order Amount is : %d\n", total);
     printf("\n\nDo You wish to order (Yes/No) : ");
     scanf("%s", choice);
-
+    
     if (strcmp(strupr(choice), "YES") == 0) {
         printf("\n\nLoading Order...");
         Sleep(3000);
@@ -28,8 +30,11 @@ void addtocart(int id) {
         scanf("%s", choice);
 
         if (strcmp(strupr(choice), "YES") == 0) {
-            // Failed to cancel
-            printf("\n\nOops! Your item is cancelled!! Exiting..\n\n");
+            
+            remove("cart.txt");
+            FILE *cart = fopen("cart.txt","a");
+
+            printf("\n\nOops! Your order is cancelled!! Exiting..\n\n");
             printf("Thank You visit again!\n");
             mainmenu();
         } else {
@@ -40,7 +45,10 @@ void addtocart(int id) {
     } else {
         // Invalid choice
         printf("\n\nPlease Enter the correct choice\n\n ");
-        cart();
+        addtocart();
     }
 }
 
+int main(){
+    // your code here
+}
