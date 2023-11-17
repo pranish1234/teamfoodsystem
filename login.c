@@ -34,7 +34,7 @@ int main()
         printf("\nPlease enter your password: ");
         scanf("%s", password);
 
-        while (fscanf(file1, "%s %s", storedUsername, storedPassword) != EOF)
+        while (fscanf(file1, "%s %s ", storedUsername, storedPassword) != EOF)
         {
             if (strcmp(username, storedUsername) == 0 && strcmp(password, storedPassword) == 0)
             {
@@ -65,7 +65,7 @@ int main()
         printf("Please enter your password: ");
         scanf("%s", password);
 
-        fprintf(file, "%s %s ", username, password);
+        fprintf(file, " %s %s ", username, password);
         fclose(file);
         printf("Account created successfully!");
         sleep(1);

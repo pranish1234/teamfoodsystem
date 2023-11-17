@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <conio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
@@ -9,6 +10,7 @@ char Fooditem[70], choiceRepeat[10];
 float prices;
 
 int addtocart();
+void bill();
 int redeemCart();
 int display();
 int mainmenu();
@@ -41,7 +43,7 @@ int addtocart(FILE *filename, int enteredId)
     {
         if (enteredId == id)
         {
-            fprintf(cart, "%d %s %f\n", id, Fooditem, prices);
+            fprintf(cart, "%s %f\n", Fooditem, prices);
         }
     }
     fclose(cart);
@@ -62,7 +64,7 @@ int mainmenu()
         cuisinemenu();
         break;
     case 2:
-        // bill();
+        bill();
         break;
     case 3:
         // cart();
@@ -324,7 +326,32 @@ int international()
         printf("Invalid choice.\n");
     }
 }
-int main()
+
+void bill()
 {
+    system("cls");
+    printf("\t\t\t\t*Your Bill*\n");
+    printf("*********************************************************************\n");
+    printf("Item\t\t  price\n");
+    FILE *fr = fopen("cart.txt", "r");
+    float pricesumarr[50], finalPrice = 0;
+    int i = 1;
+
+    while (fscanf(fr, "%s %f", Fooditem, &prices) != EOF)
+    {
+        pricesumarr[i] = prices;
+        printf("%-30s   %.2f\n", Fooditem, prices);
+        finalPrice = finalPrice + pricesumarr[i];
+        i++;
+    }
+
+    printf("********************************************************************\n");
+    printf("Your total is\t\t %.2f\n", finalPrice);
+    getch();
+    fclose(fr);
     mainmenu();
 }
+// int main()
+// {
+//     bill();
+// }
