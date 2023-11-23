@@ -8,10 +8,12 @@ int choice, id, order;
 int total = 0;
 char Fooditem[70], choiceRepeat[10];
 float prices, finalPrice = 0;
+float balance = 10000.0;
 
 int addtocart();
 void bill();
 void cartt();
+int delivarylocation();
 int redeemCart();
 int display();
 int mainmenu();
@@ -21,6 +23,24 @@ int drinks();
 int deserts();
 int local();
 int international();
+struct date
+{
+    int month;
+    int day;
+    int year;
+};
+
+struct account
+{
+    int number;
+    int acc_no;
+    char name[100];
+    char street[100];
+    char city[100];
+    float mobile_no;
+    float payment;
+    struct date;
+} customer;
 
 // food displays ways
 int display(FILE *filename, char name[100])
@@ -232,9 +252,77 @@ int local()
     fclose(local);
 }
 
+void makePayment(float amount)
+{
+    if (amount <= balance)
+    {
+        int transactionID = rand() % 9000 + 1000;
+        balance -= amount;
+        printf("Payment successful! Transaction ID: %d\n", transactionID);
+    }
+    else
+    {
+        printf("Insufficient funds. Payment failed.\n");
+    }
+}
+
 void payment()
 {
-    // yeta kei pani na garne
+    char choice[10];
+    int option;
+    FILE *fp = fopen("payment.txt", "a");
+    printf("   CUSTOMER BILLING SYSTEM:\n\n");
+    printf("===============================\n");
+    printf("\n1. card payment\n");
+    printf("2. cash on delivary\n");
+
+    printf("Select an option (1/2): ");
+    scanf("%s", &choice);
+
+    if (choice == 1)
+    {
+        printf("\n Account number:");
+        scanf("%d", &customer.acc_no);
+
+        makePayment(finalPrice);
+        delivarylocation();
+    }
+    else if (choice == 2)
+    {
+        printf("Cash on delivery\n");
+        delivarylocation();
+    }
+    else
+    {
+        printf("Invalid choice. Please select a valid option.\n");
+        Sleep(1000);
+        payment();
+    }
+}
+
+int delivarylocation()
+{
+    printf("\n Name:");
+    scanf("%s", customer.name);
+    printf("\n mobile no:");
+    scanf("%f", &customer.mobile_no);
+    printf(" Street:");
+    scanf("%s", customer.street);
+    printf(" City:");
+    scanf("%s", customer.city);
+
+    printf("\n\n your order is set to delivary\n");
+    printf("\n\n press any key to continue");
+    getch();
+    printf("   :RECEIPT:\n\n");
+    printf("===============================\n");
+    printf("\nName: %s\n", customer.name);
+    printf("Number: %f\n", customer.mobile_no);
+    printf(" Location: %s,%s\n", customer.street, customer.city);
+    printf("\n\n thank you for the patronage\n");
+    printf("\n\n press any key to continue");
+    getch();
+    mainmenu();
 }
 
 int redeemCart()
